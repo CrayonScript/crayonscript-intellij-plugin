@@ -1,4 +1,4 @@
-package com.github.rvergis.crayonscriptintellijplugin
+package com.crayonscript.crayonscriptplugin
 
 import com.intellij.AbstractBundle
 import org.jetbrains.annotations.NonNls

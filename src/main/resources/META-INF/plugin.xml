@@ -1,19 +1,19 @@
 <idea-plugin>
-    <id>org.crayonscript.crayonscriptintellijplugin</id>
-    <name>crayonscript-intellij-plugin</name>
-    <vendor>rvergis</vendor>
+    <id>org.crayonscript.crayonscriptplugin</id>
+    <name>crayonscript</name>
+    <vendor>CrayonScript</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.rvergis.crayonscriptintellijplugin.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.rvergis.crayonscriptintellijplugin.services.MyProjectService"/>
+        <applicationService serviceImplementation="com.crayonscript.crayonscriptplugin.services.MyApplicationService"/>
+        <projectService serviceImplementation="com.crayonscript.crayonscriptplugin.services.MyProjectService"/>
     </extensions>
 
     <applicationListeners>
-        <listener class="com.github.rvergis.crayonscriptintellijplugin.listeners.MyProjectManagerListener"
+        <listener class="com.crayonscript.crayonscriptplugin.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 </idea-plugin>

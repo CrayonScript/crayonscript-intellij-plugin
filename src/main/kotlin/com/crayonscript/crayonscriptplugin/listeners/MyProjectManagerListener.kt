@@ -1,6 +1,6 @@
-package com.github.rvergis.crayonscriptintellijplugin.listeners
+package com.crayonscript.crayonscriptplugin.listeners
 
-import com.github.rvergis.crayonscriptintellijplugin.services.MyProjectService
+import com.crayonscript.crayonscriptplugin.services.MyProjectService
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManagerListener
