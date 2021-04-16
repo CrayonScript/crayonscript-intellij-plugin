@@ -1,5 +1,5 @@
 <idea-plugin>
-    <id>com.github.rvergis.crayonscriptintellijplugin</id>
+    <id>org.crayonscript.crayonscriptintellijplugin</id>
     <name>crayonscript-intellij-plugin</name>
     <vendor>rvergis</vendor>
 
