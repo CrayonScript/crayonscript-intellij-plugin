@@ -1,9 +1,9 @@
 package org.crayonscript.crayonscriptplugin.listeners
 
-import org.crayonscript.crayonscriptplugin.services.MyProjectService
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManagerListener
+import org.crayonscript.crayonscriptplugin.services.MyProjectService
 
 internal class MyProjectManagerListener : ProjectManagerListener {
 

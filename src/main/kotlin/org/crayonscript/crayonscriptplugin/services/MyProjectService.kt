@@ -1,7 +1,7 @@
 package org.crayonscript.crayonscriptplugin.services
 
-import org.crayonscript.crayonscriptplugin.MyBundle
 import com.intellij.openapi.project.Project
+import org.crayonscript.crayonscriptplugin.MyBundle
 
 class MyProjectService(project: Project) {
 
