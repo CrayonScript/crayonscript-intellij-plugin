@@ -1,3 +1,5 @@
 .gradle
 .idea
 build
+Unity/UnityEditorPlugin/bin/
+Unity/UnityEditorPlugin/obj/
