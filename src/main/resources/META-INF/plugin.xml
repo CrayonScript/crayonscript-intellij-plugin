@@ -1,19 +1,19 @@
 <idea-plugin>
     <id>org.crayonscript.crayonscriptplugin</id>
     <name>crayonscript</name>
-    <vendor>CrayonScript</vendor>
+    <vendor email="developer@crayonscript.org">CrayonScript</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.crayonscript.crayonscriptplugin.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.crayonscript.crayonscriptplugin.services.MyProjectService"/>
+        <applicationService serviceImplementation="org.crayonscript.crayonscriptplugin.services.MyApplicationService"/>
+        <projectService serviceImplementation="org.crayonscript.crayonscriptplugin.services.MyProjectService"/>
     </extensions>
 
     <applicationListeners>
-        <listener class="com.crayonscript.crayonscriptplugin.listeners.MyProjectManagerListener"
+        <listener class="org.crayonscript.crayonscriptplugin.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 </idea-plugin>

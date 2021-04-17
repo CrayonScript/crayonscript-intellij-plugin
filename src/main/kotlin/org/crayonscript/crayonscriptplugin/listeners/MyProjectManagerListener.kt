@@ -1,6 +1,6 @@
-package com.crayonscript.crayonscriptplugin.listeners
+package org.crayonscript.crayonscriptplugin.listeners
 
-import com.crayonscript.crayonscriptplugin.services.MyProjectService
+import org.crayonscript.crayonscriptplugin.services.MyProjectService
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManagerListener

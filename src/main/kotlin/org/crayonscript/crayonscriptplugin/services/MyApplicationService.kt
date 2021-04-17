@@ -1,6 +1,6 @@
-package com.crayonscript.crayonscriptplugin.services
+package org.crayonscript.crayonscriptplugin.services
 
-import com.crayonscript.crayonscriptplugin.MyBundle
+import org.crayonscript.crayonscriptplugin.MyBundle
 
 class MyApplicationService {
 

@@ -1,4 +1,4 @@
-package com.crayonscript.crayonscriptplugin
+package org.crayonscript.crayonscriptplugin
 
 import com.intellij.AbstractBundle
 import org.jetbrains.annotations.NonNls
