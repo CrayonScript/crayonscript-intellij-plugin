@@ -44,12 +44,12 @@ As a Unity 3D game designer, you would continue to design game assets within Uni
 
 For example, you would continue to design Scenes, Animators, Particle Effects, Materials, Textures, Models, Shaders, Audio etc. within Unity.
 
-CrayonScript will take care of all aspects of programming the game.
+CrayonScript will take care of the rest ... i.e all aspects of programming the game.
+
+The CrayonScript IDE will provide you with the Blocks necessary to easily build the game workflow.
 
 In other words, you no longer need to worry about writing and managing C# scripts, or understand internals of MonoBehaviour, Coroutines, Yields etc.
    
-The CrayonScript IDE will provide you with the Blocks necessary to build the game flow and associate the game flow with the Unity Assets and Data.
-
 Please see the section on [CrayonScript Blocks](#crayonscript-blocks) for more info on Blocks.
 
 <!-- Plugin description end -->
