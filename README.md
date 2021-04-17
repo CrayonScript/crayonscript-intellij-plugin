@@ -1,8 +1,8 @@
 # crayonscript-intellij-plugin
 
 ![Build](https://github.com/CrayonScript/crayonscript-intellij-plugin/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/plugin/16582-crayonscript.svg)](https://plugins.jetbrains.com/plugin/16582-crayonscript)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/plugin/16582-crayonscript.svg)](https://plugins.jetbrains.com/plugin/16582-crayonscript)
+[![Version](https://img.shields.io/jetbrains/plugin/v/16582-crayonscript.svg)](https://plugins.jetbrains.com/plugin/16582-crayonscript)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/16582-crayonscript.svg)](https://plugins.jetbrains.com/plugin/16582-crayonscript)
 
 ## Template ToDo list
 - [x] Create a new [IntelliJ Platform Plugin Template][template] project.
