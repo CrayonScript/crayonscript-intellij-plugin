@@ -20,29 +20,7 @@
 
 CrayonScript is a visual programming language to develop games, stories, animations and other applications in Unity.
 
-Applications are developed using visual blocks that are then connected to form workflows.
-
-Blocks can be extended with custom scripts to achieve the level of functionality as professional game programmers.
-
-As a Unity programmer, you would continue to develop game assets within Unity using the powerful Unity Editor.
-
-This would include any Scenes, Animators, Particle Effects, Materials, Textures, Models, Shaders, Audio etc. that are needed by the application.
-
-These assets would then be stitched into the workflow.
-
-CrayonScript workflows are easy to visualize since they are laid out as visual blocks in the IntelliJ IDE.
-
-They are also debuggable, which means that you can pause the application at a Block and view the internal state of the application.
-
-CrayonScript will take care of all Asynchronous and Event driven aspects of game programming.
-
-In other words, you no longer need to worry about C# scripts, writing MonoBehaviour lifecycle, Coroutines, Yields etc.
-
-Your entire application "Code" can now be visualized and developed in an intuitive layout.
-
-### Details
-
-A CrayonScript application is made up of Blocks.
+A CrayonScript application is visually made up of Blocks.
 
 Blocks connect together like a Jigsaw puzzle to create a workflow.
 
@@ -53,6 +31,30 @@ Every application has at least one workflow called the "Main" workflow.
 The "Main" workflow run when the application runs in Unity Editor or on a device.
 
 Blocks have "Commands" that run as part of the workflow.
+
+CrayonScript workflows are easy to visualize since they are laid out as visual blocks in the IntelliJ IDE.
+
+They are also debuggable, which means that you can pause the application within a Block and view the internal state of the application.
+
+Your entire application "Code" can now be visualized developed and debugged in an intuitive layout.
+
+### Designing a Game
+
+As a Unity 3D game designer, you would continue to design game assets within Unity using the powerful Unity Editor.
+
+For example, you would continue to design Scenes, Animators, Particle Effects, Materials, Textures, Models, Shaders, Audio etc. within Unity.
+
+CrayonScript will take care of all aspects of programming the game.
+
+In other words, you no longer need to worry about writing and managing C# scripts, or understand internals of MonoBehaviour, Coroutines, Yields etc.
+   
+The CrayonScript IDE will provide you with the Blocks necessary to build the game flow and associate the game flow with the Unity Assets and Data.
+
+Please see the section on [CrayonScript Blocks](#crayonscript-blocks) for more info on Blocks.
+
+<!-- Plugin description end -->
+
+### CrayonScript Blocks
 
 There are different types of blocks:
 
@@ -85,11 +87,6 @@ There are different types of blocks:
    Similarly, a ReelBlock is a GameControl block that manages the reel game object and reel data in a slots game.
    The ReelBlock would have "StartSpin", "ProcessOutcome", "StopSpin" and other related commands.
    A WinBoxBlock would have a "RollUp" command to rollup the wins, a "Hide" command to hide the win box.
-   
-Keep in mind that unity animators can independently animate game objects, moving them around and updating properties. 
-For more information on Unity animators, check the Unity documentation.
-
-<!-- Plugin description end -->
 
 ## Installation
 
