@@ -16,9 +16,8 @@
 <!-- Plugin description -->
 Plugin for the CrayonScript workflow in Unity.
 
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
+CrayonScript plugin provides visual workflows to build and develop games, stories and animations in Unity.
 
-To keep everything working, do not remove `<!-- ... -->` sections. 
 <!-- Plugin description end -->
 
 ## Installation
