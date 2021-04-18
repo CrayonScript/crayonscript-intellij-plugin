@@ -8,8 +8,8 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="org.crayonscript.crayonscriptplugin.services.MyApplicationService"/>
-        <projectService serviceImplementation="org.crayonscript.crayonscriptplugin.services.MyProjectService"/>
+        <applicationService serviceImplementation="org.crayonscript.crayonscriptplugin.services.CrayonScriptApplicationService"/>
+        <projectService serviceImplementation="org.crayonscript.crayonscriptplugin.services.CrayonScriptProjectService"/>
     </extensions>
 
     <applicationListeners>
