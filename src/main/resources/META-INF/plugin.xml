@@ -13,7 +13,7 @@
     </extensions>
 
     <applicationListeners>
-        <listener class="org.crayonscript.crayonscriptplugin.listeners.MyProjectManagerListener"
+        <listener class="org.crayonscript.crayonscriptplugin.listeners.CrayonScriptProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 </idea-plugin>
