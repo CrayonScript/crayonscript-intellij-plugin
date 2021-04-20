@@ -131,7 +131,7 @@ namespace UnityEditorPlugin
             var intelliJPath = Path.Combine(localAppData, @"JetBrains/IdeaIC2021.1");
             var intelliJHomeFileName = Path.Combine(intelliJPath, ".home");
             var intelliJHomePath = File.ReadAllText(intelliJHomeFileName);
-            var intelliJExePath = $"{intelliJHomePath}\\bin\\idea.exe";
+            var intelliJExePath = $"{intelliJHomePath}\\bin\\idea64.exe";
             return intelliJExePath;
         }
     }
