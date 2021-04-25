@@ -1,0 +1,11 @@
+C:\Users\Owner\Documents\GitHub\crayonscript-intellij-plugin\Unity\CrayonScriptPlugin\bin\Debug\net461\CrayonScriptPlugin.dll
+C:\Users\Owner\Documents\GitHub\crayonscript-intellij-plugin\Unity\CrayonScriptPlugin\bin\Debug\net461\CrayonScriptPlugin.pdb
+C:\Users\Owner\Documents\GitHub\crayonscript-intellij-plugin\Unity\CrayonScriptPlugin\bin\Debug\net461\UnityEditor.dll
+C:\Users\Owner\Documents\GitHub\crayonscript-intellij-plugin\Unity\CrayonScriptPlugin\bin\Debug\net461\UnityEngine.dll
+C:\Users\Owner\Documents\GitHub\crayonscript-intellij-plugin\Unity\CrayonScriptPlugin\obj\Debug\net461\CrayonScriptPlugin.csprojAssemblyReference.cache
+C:\Users\Owner\Documents\GitHub\crayonscript-intellij-plugin\Unity\CrayonScriptPlugin\obj\Debug\net461\CrayonScriptPlugin.AssemblyInfoInputs.cache
+C:\Users\Owner\Documents\GitHub\crayonscript-intellij-plugin\Unity\CrayonScriptPlugin\obj\Debug\net461\CrayonScriptPlugin.AssemblyInfo.cs
+C:\Users\Owner\Documents\GitHub\crayonscript-intellij-plugin\Unity\CrayonScriptPlugin\obj\Debug\net461\CrayonScriptPlugin.csproj.CoreCompileInputs.cache
+C:\Users\Owner\Documents\GitHub\crayonscript-intellij-plugin\Unity\CrayonScriptPlugin\obj\Debug\net461\CrayonScriptPlugin.csproj.CopyComplete
+C:\Users\Owner\Documents\GitHub\crayonscript-intellij-plugin\Unity\CrayonScriptPlugin\obj\Debug\net461\CrayonScriptPlugin.dll
+C:\Users\Owner\Documents\GitHub\crayonscript-intellij-plugin\Unity\CrayonScriptPlugin\obj\Debug\net461\CrayonScriptPlugin.pdb

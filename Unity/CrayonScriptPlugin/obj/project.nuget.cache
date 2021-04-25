@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "fl5HBZW8lx5sIn0t+O4Qc/5VXv/lus5T39Ro0lDm8JEQcGhts2A66LJ811jwhmVCh6dMfa+zkcIaTFYOZppbCA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Owner\\Documents\\GitHub\\crayonscript-intellij-plugin\\Unity\\CrayonScriptPlugin\\CrayonScriptPlugin.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Owner\\.nuget\\packages\\unity3d.sdk\\2021.1.2.1\\unity3d.sdk.2021.1.2.1.nupkg.sha512"
+  ],
+  "logs": []
+}

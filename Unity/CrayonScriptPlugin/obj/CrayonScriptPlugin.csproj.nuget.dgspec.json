@@ -1,0 +1,51 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Owner\\Documents\\GitHub\\crayonscript-intellij-plugin\\Unity\\CrayonScriptPlugin\\CrayonScriptPlugin.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Owner\\Documents\\GitHub\\crayonscript-intellij-plugin\\Unity\\CrayonScriptPlugin\\CrayonScriptPlugin.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Owner\\Documents\\GitHub\\crayonscript-intellij-plugin\\Unity\\CrayonScriptPlugin\\CrayonScriptPlugin.csproj",
+        "projectName": "CrayonScriptPlugin",
+        "projectPath": "C:\\Users\\Owner\\Documents\\GitHub\\crayonscript-intellij-plugin\\Unity\\CrayonScriptPlugin\\CrayonScriptPlugin.csproj",
+        "packagesPath": "C:\\Users\\Owner\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Owner\\Documents\\GitHub\\crayonscript-intellij-plugin\\Unity\\CrayonScriptPlugin\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Owner\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net461"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net461": {
+            "targetAlias": "net461",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net461": {
+          "targetAlias": "net461",
+          "dependencies": {
+            "Unity3D.SDK": {
+              "target": "Package",
+              "version": "[2021.1.2.1, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
