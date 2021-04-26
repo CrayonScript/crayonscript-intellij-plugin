@@ -1,4 +1,4 @@
-<idea-plugin>
+<idea-plugin url="https://github.com/CrayonScript/crayonscript-intellij-plugin/blob/main/README.md">
     <id>org.crayonscript.crayonscriptplugin</id>
     <name>crayonscript</name>
     <vendor email="developer@crayonscript.org">CrayonScript</vendor>
@@ -10,6 +10,14 @@
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="org.crayonscript.crayonscriptplugin.services.CrayonScriptApplicationService"/>
         <projectService serviceImplementation="org.crayonscript.crayonscriptplugin.services.CrayonScriptProjectService"/>
+        <fileType name="CrayonScript"
+                  extensions="crayonscript"
+                  implementationClass="org.crayonscript.crayonscriptplugin.editors.CrayonScriptFileType"
+                  language="CrayonScript"
+                  fieldName="INSTANCE" />
+        <fileEditorProvider
+                implementation="org.crayonscript.crayonscriptplugin.editors.CrayonScriptEditorProvider" />
+        <iconProvider implementation="org.crayonscript.crayonscriptplugin.icons.CrayonScriptIconProvider" />
     </extensions>
 
     <applicationListeners>
