@@ -20,6 +20,13 @@
         <iconProvider implementation="org.crayonscript.crayonscriptplugin.icons.CrayonScriptIconProvider" />
     </extensions>
 
+    <actions>
+        <group id="CrayonScriptNew" text="CrayonScript">
+            <action id="CrayonScriptNewFile" class="org.crayonscript.crayonscriptplugin.actions.CrayonScriptCreateFileAction"/>
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFromTemplate"/>
+        </group>
+    </actions>
+
     <applicationListeners>
         <listener class="org.crayonscript.crayonscriptplugin.listeners.CrayonScriptProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
