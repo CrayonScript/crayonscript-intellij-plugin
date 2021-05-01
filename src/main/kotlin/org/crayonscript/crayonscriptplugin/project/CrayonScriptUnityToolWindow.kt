@@ -13,22 +13,24 @@ import org.crayonscript.crayonscriptplugin.services.CrayonScriptProjectService
 import org.crayonscript.crayonscriptplugin.util.CrayonScriptUnityObjectNode
 import org.crayonscript.crayonscriptplugin.util.CrayonScriptUtils
 import javax.swing.JComponent
-import javax.swing.tree.DefaultMutableTreeNode
-import javax.swing.tree.DefaultTreeModel
-import javax.swing.tree.TreeSelectionModel
+import javax.swing.event.TreeModelEvent
+import javax.swing.event.TreeModelListener
+import javax.swing.tree.*
 
 
 class CrayonScriptUnityToolWindowFactory : ToolWindowFactory, DumbAware {
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
         val toolWindowPanel = CrayonScriptUnityToolWindowPanel(project)
         val tab = ContentFactory.SERVICE.getInstance().createContent(
-            toolWindowPanel, "", false)
+            toolWindowPanel, "", false
+        )
         toolWindow.contentManager.addContent(tab)
     }
 }
 
 class CrayonScriptUnityToolWindowPanel(project: Project) : SimpleToolWindowPanel(true, false) {
     private val unityToolWindow = CrayonScriptUnityToolWindow(project)
+
     init {
         setContent(unityToolWindow.content)
     }
@@ -38,21 +40,10 @@ class CrayonScriptUnityToolWindowPanel(project: Project) : SimpleToolWindowPanel
 class CrayonScriptUnityToolWindow(
     private val project: Project
 ) {
-    val content: JComponent  = ScrollPaneFactory.createScrollPane(CrayonScriptUnityTree(project), 0)
-}
 
-class CrayonScriptUnityTree(private val project: Project) : SimpleTree() {
+    val content: JComponent
+
     init {
-
-        emptyText.text = "No Unity Objects to display"
-
-        this.isRootVisible = false
-        this.showsRootHandles = true
-        this.selectionModel.selectionMode = TreeSelectionModel.SINGLE_TREE_SELECTION
-
-        val treeNode = CrayonScriptUnityTreeNode()
-        this.model = DefaultTreeModel(treeNode)
-
         val projectService = project.service<CrayonScriptProjectService>()
         val crayonScriptProject = projectService.crayonScriptProject;
 
@@ -63,15 +54,85 @@ class CrayonScriptUnityTree(private val project: Project) : SimpleTree() {
             sceneObjects.add(sceneObject)
         }
 
-        isRootVisible = false; //scenes.isNotEmpty();
+        var rootObject = CrayonScriptUnityObjectNode(
+            CrayonScriptUnityObjectNode.ROOT_OBJECT_ID,
+            CrayonScriptUnityObjectNode.ROOT_FILE_ID
+        )
+        rootObject.processTopNode(crayonScriptProject)
 
-        emptyText.text = ""
         for (sceneObject in sceneObjects) {
-            emptyText.text += "," + sceneObject.getName()
+            rootObject.addChild(sceneObject)
         }
+
+        var rootTreeNode = CrayonScriptUnityTreeNode(project, rootObject)
+
+        var rootTreeModel = CrayonScriptTreeModel(project, rootTreeNode)
+
+        val crayonScriptTree = CrayonScriptTree(project, rootTreeModel)
+
+        content = ScrollPaneFactory.createScrollPane(crayonScriptTree, 0)
     }
 }
 
-class CrayonScriptUnityTreeNode() : DefaultMutableTreeNode() {
+class CrayonScriptTree(
+    private val project: Project,
+    private val treeModel: DefaultTreeModel
+) : SimpleTree(treeModel) {
 
+    init {
+        this.isRootVisible = true
+        this.showsRootHandles = true
+        this.selectionModel = CrayonScriptTreeSelectionModel()
+        this.cellRenderer = CrayonScriptTreeCellRenderer(project)
+    }
+
+}
+
+class CrayonScriptTreeCellRenderer(
+    private val project: Project
+) : DefaultTreeCellRenderer() {
+
+}
+
+class CrayonScriptUnityTreeNode(
+    private val project: Project,
+    crayonScriptObject: CrayonScriptUnityObjectNode
+) : DefaultMutableTreeNode(crayonScriptObject) {
+
+}
+
+class CrayonScriptTreeModel(
+    private val project: Project,
+    treeNode: DefaultMutableTreeNode
+) : DefaultTreeModel(treeNode) {
+
+    init {
+        this.addTreeModelListener(CrayonScriptTreeModelListener())
+    }
+}
+
+class CrayonScriptTreeModelListener() : TreeModelListener {
+
+    override fun treeNodesChanged(e: TreeModelEvent?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun treeNodesInserted(e: TreeModelEvent?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun treeNodesRemoved(e: TreeModelEvent?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun treeStructureChanged(e: TreeModelEvent?) {
+        TODO("Not yet implemented")
+    }
+}
+
+class CrayonScriptTreeSelectionModel() : DefaultTreeSelectionModel() {
+
+    init {
+        this.selectionMode = TreeSelectionModel.SINGLE_TREE_SELECTION
+    }
 }

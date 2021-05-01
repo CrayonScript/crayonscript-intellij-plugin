@@ -1,6 +1,7 @@
 package org.crayonscript.crayonscriptplugin.util
 
 import com.intellij.openapi.vfs.VirtualFile
+import org.crayonscript.crayonscriptplugin.project.CrayonScriptProject
 
 class CrayonScriptUnityObjectNode(
     val objectId:Int,
@@ -31,6 +32,10 @@ class CrayonScriptUnityObjectNode(
 
     fun addChild(child:CrayonScriptUnityObjectNode) {
         this.children.add(child)
+    }
+
+    fun processTopNode(crayonScriptProject:CrayonScriptProject) {
+        this.name = crayonScriptProject.name
     }
 
     fun processSceneNode(sceneVirtualFile:VirtualFile) {
@@ -192,10 +197,12 @@ class CrayonScriptUnityObjectNode(
 
     companion object {
 
+        const val ROOT_OBJECT_ID = -2
         const val GAMEOBJECT_OBJECT_ID = 1
         const val TRANSFORM_OBJECT_ID = 4
         const val SCENE_OBJECT_ID = 1032
 
+        const val ROOT_FILE_ID = -2
         const val SCENE_FILE_ID = 0
 
         val fieldRegex = Regex("\\s*m_([^:]+):\\s*(.*)")

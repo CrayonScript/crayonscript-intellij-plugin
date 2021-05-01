@@ -8,20 +8,20 @@ class CrayonScriptProject(private val project: Project)
 {
     private val scenes:List<VirtualFile>
     private var crayonScripts:List<VirtualFile>
+    val name:String
 
     init {
         scenes = getScenes()
         crayonScripts = getCrayonScripts()
+        name = project.name
     }
 
-    fun getCrayonScripts():List<VirtualFile> {
-        val virtualFiles = CrayonScriptUtils.getUnityAssetFilesByType(project, CrayonScriptUtils.CRAYONSCRIPT_FILE_TYPE)
-        return virtualFiles
+    fun getCrayonScripts(): List<VirtualFile> {
+        return CrayonScriptUtils.getUnityAssetFilesByType(project, CrayonScriptUtils.CRAYONSCRIPT_FILE_TYPE)
     }
 
-    fun getScenes():List<VirtualFile> {
-        var virtualFiles = CrayonScriptUtils.getUnityAssetFilesByType(project, CrayonScriptUtils.SCENE_FILE_TYPE)
-        return virtualFiles
+    fun getScenes(): List<VirtualFile> {
+        return CrayonScriptUtils.getUnityAssetFilesByType(project, CrayonScriptUtils.SCENE_FILE_TYPE)
     }
 
 }
