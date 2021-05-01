@@ -64,7 +64,8 @@ class CrayonScriptUnityToolWindow(
             rootObject.addChild(sceneObject)
         }
 
-        var rootTreeNode = CrayonScriptUnityTreeNode(project, rootObject)
+        var rootTreeNode = CrayonScriptTreeNode(project, rootObject)
+        rootTreeNode.setupTreeNodes()
 
         var rootTreeModel = CrayonScriptTreeModel(project, rootTreeNode)
 
@@ -76,8 +77,8 @@ class CrayonScriptUnityToolWindow(
 
 class CrayonScriptTree(
     private val project: Project,
-    private val treeModel: DefaultTreeModel
-) : SimpleTree(treeModel) {
+    private val crayonScriptTreeModel: CrayonScriptTreeModel
+) : SimpleTree(crayonScriptTreeModel) {
 
     init {
         this.isRootVisible = true
@@ -85,23 +86,29 @@ class CrayonScriptTree(
         this.selectionModel = CrayonScriptTreeSelectionModel()
         this.cellRenderer = CrayonScriptTreeCellRenderer(project)
     }
-
-}
-
-class CrayonScriptUnityTreeNode(
-    private val project: Project,
-    crayonScriptObject: CrayonScriptUnityObjectNode
-) : DefaultMutableTreeNode(crayonScriptObject) {
-
 }
 
 class CrayonScriptTreeModel(
     private val project: Project,
-    treeNode: DefaultMutableTreeNode
-) : DefaultTreeModel(treeNode) {
+    private val crayonScriptTreeNode: CrayonScriptTreeNode
+) : DefaultTreeModel(crayonScriptTreeNode) {
 
     init {
         this.addTreeModelListener(CrayonScriptTreeModelListener())
+    }
+}
+
+class CrayonScriptTreeNode(
+    private val project: Project,
+    private val crayonScriptObject: CrayonScriptUnityObjectNode
+) : DefaultMutableTreeNode(crayonScriptObject) {
+
+    fun setupTreeNodes() {
+        for (childObject in this.crayonScriptObject.getChildren()) {
+            val childTreeNode = CrayonScriptTreeNode(project, childObject!!)
+            this.add(childTreeNode)
+            childTreeNode.setupTreeNodes()
+        }
     }
 }
 
