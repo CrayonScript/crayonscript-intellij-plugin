@@ -88,12 +88,6 @@ class CrayonScriptTree(
 
 }
 
-class CrayonScriptTreeCellRenderer(
-    private val project: Project
-) : DefaultTreeCellRenderer() {
-
-}
-
 class CrayonScriptUnityTreeNode(
     private val project: Project,
     crayonScriptObject: CrayonScriptUnityObjectNode
@@ -108,6 +102,19 @@ class CrayonScriptTreeModel(
 
     init {
         this.addTreeModelListener(CrayonScriptTreeModelListener())
+    }
+}
+
+class CrayonScriptTreeCellRenderer(
+    private val project: Project
+) : DefaultTreeCellRenderer() {
+
+}
+
+class CrayonScriptTreeSelectionModel() : DefaultTreeSelectionModel() {
+
+    init {
+        this.selectionMode = TreeSelectionModel.SINGLE_TREE_SELECTION
     }
 }
 
@@ -130,9 +137,4 @@ class CrayonScriptTreeModelListener() : TreeModelListener {
     }
 }
 
-class CrayonScriptTreeSelectionModel() : DefaultTreeSelectionModel() {
 
-    init {
-        this.selectionMode = TreeSelectionModel.SINGLE_TREE_SELECTION
-    }
-}

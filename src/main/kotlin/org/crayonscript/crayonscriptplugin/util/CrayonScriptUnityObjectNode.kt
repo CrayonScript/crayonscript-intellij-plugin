@@ -18,6 +18,10 @@ class CrayonScriptUnityObjectNode(
         return name
     }
 
+    override fun toString(): String {
+        return name
+    }
+
     fun setStartIndex(startIndex:Int) {
         this.startIndex = startIndex
     }
