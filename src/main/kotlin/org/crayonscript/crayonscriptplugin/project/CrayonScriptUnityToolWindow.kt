@@ -8,9 +8,14 @@ import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.ScrollPaneFactory
 import com.intellij.ui.content.ContentFactory
+import com.intellij.ui.treeStructure.SimpleNode
 import com.intellij.ui.treeStructure.SimpleTree
+import com.intellij.ui.treeStructure.SimpleTreeBuilder
 import org.crayonscript.crayonscriptplugin.services.CrayonScriptProjectService
+import org.crayonscript.crayonscriptplugin.util.CrayonScriptUtils
 import javax.swing.JComponent
+import javax.swing.tree.DefaultMutableTreeNode
+import javax.swing.tree.DefaultTreeModel
 import javax.swing.tree.TreeSelectionModel
 
 
@@ -34,21 +39,31 @@ class CrayonScriptUnityToolWindowPanel(project: Project) : SimpleToolWindowPanel
 class CrayonScriptUnityToolWindow(
     private val project: Project
 ) {
-    private val projectTree = CrayonScriptUnityTree(project)
-    val content: JComponent = ScrollPaneFactory.createScrollPane(projectTree, 0)
+    val content: JComponent  = ScrollPaneFactory.createScrollPane(CrayonScriptUnityTree(project), 0)
 }
 
 class CrayonScriptUnityTree(private val project: Project) : SimpleTree() {
     init {
-        isRootVisible = false
-        showsRootHandles = true
-        selectionModel.selectionMode = TreeSelectionModel.SINGLE_TREE_SELECTION
+
+        emptyText.text = "No Unity Objects to display"
+
+        this.isRootVisible = false
+        this.showsRootHandles = true
+        this.selectionModel.selectionMode = TreeSelectionModel.SINGLE_TREE_SELECTION
+
+        val treeNode = DefaultMutableTreeNode()
+        this.model = DefaultTreeModel(treeNode)
 
         val projectService = project.service<CrayonScriptProjectService>()
         val crayonScriptProject = projectService.crayonScriptProject;
         var scenes = crayonScriptProject.getScenes()
-        var scene = scenes[0]
+        for (scene in scenes) {
+            var rootGameObjects = CrayonScriptUtils.getGameObjectsInScene(scene)
+        }
 
-        emptyText.text = scene.name
+        isRootVisible = scenes.isNotEmpty();
     }
+}
+
+class CrayonScriptUnityTreeNode() : DefaultMutableTreeNode() {
 }

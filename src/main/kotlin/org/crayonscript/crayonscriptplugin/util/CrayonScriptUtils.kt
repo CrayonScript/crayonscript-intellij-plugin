@@ -47,5 +47,53 @@ class CrayonScriptUtils {
 
             return Collections.unmodifiableList(mutableList)
         }
+
+        fun getGameObjectsInScene(sceneVirtualFile:VirtualFile):List<CrayonScriptUnityObjectNode> {
+            val content = String(sceneVirtualFile.contentsToByteArray())
+            var linesOfCode = content.lines()
+
+            val blockStartRegex = Regex("--- !u!(\\d+)\\s+&(\\d+)")
+
+            val blockFileIdToNodeMap = mutableMapOf<Int, CrayonScriptUnityObjectNode>()
+
+            var index = -1
+            var blockFileId = -1
+
+            while (++index < linesOfCode.size) {
+                val line = linesOfCode[index]
+                if (blockStartRegex.matches(line)) {
+                    // new block
+                    val matchResult = blockStartRegex.matchEntire(line)
+                    val matchGroups = matchResult!!.groups
+                    val objectId = matchGroups.elementAt(1)!!.value.toInt()
+                    val fileId = matchGroups.elementAt(2)!!.value.toInt()
+
+                    blockFileIdToNodeMap[fileId] = CrayonScriptUnityObjectNode(objectId, fileId)
+                    blockFileIdToNodeMap[fileId]!!.setStartIndex(index)
+
+                    // store the previous block
+                    blockFileIdToNodeMap[blockFileId]?.setEndIndex(index)
+                    // setup the new block start index
+                    blockFileId = fileId
+                }
+            }
+
+            // update end index for any final block info
+            blockFileIdToNodeMap[blockFileId]?.setEndIndex(index)
+
+            val rootGameObjectNodes = mutableListOf<CrayonScriptUnityObjectNode>()
+
+            // process the blocks
+            for ((blockFileId, blockNode) in blockFileIdToNodeMap) {
+                if (blockNode.objectId ==  CrayonScriptUnityObjectNode.GAMEOBJECT_ID) {
+                    blockNode.processNode(blockFileIdToNodeMap, linesOfCode)
+                    if (blockNode.isRootNode(blockFileIdToNodeMap, linesOfCode)) {
+                        rootGameObjectNodes.add(blockNode)
+                    }
+                }
+            }
+
+            return rootGameObjectNodes
+        }
     }
 }
