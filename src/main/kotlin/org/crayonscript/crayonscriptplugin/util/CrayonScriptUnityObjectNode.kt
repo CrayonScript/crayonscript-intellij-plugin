@@ -1,5 +1,7 @@
 package org.crayonscript.crayonscriptplugin.util
 
+import com.intellij.openapi.vfs.VirtualFile
+
 class CrayonScriptUnityObjectNode(
     val objectId:Int,
     val fileId:Int
@@ -7,8 +9,13 @@ class CrayonScriptUnityObjectNode(
 
     private var startIndex:Int = 0
     private var endIndex:Int = 0
+    private var name:String = ""
 
     private val children:MutableList<CrayonScriptUnityObjectNode> = mutableListOf<CrayonScriptUnityObjectNode>()
+
+    fun getName():String {
+        return name
+    }
 
     fun setStartIndex(startIndex:Int) {
         this.startIndex = startIndex
@@ -18,12 +25,27 @@ class CrayonScriptUnityObjectNode(
         this.endIndex = endIndex
     }
 
-    fun processNode(blockFileIdToNodeMap:Map<Int, CrayonScriptUnityObjectNode>, linesOfCode:List<String>) {
+    fun GetChildren():List<CrayonScriptUnityObjectNode> {
+        return this.children
+    }
+
+    fun AddChild(child:CrayonScriptUnityObjectNode) {
+        this.children.add(child)
+    }
+
+    fun processSceneNode(sceneVirtualFile:VirtualFile) {
+        this.name = sceneVirtualFile.name
+    }
+
+    fun processGameObjectNode(blockFileIdToNodeMap:Map<Int, CrayonScriptUnityObjectNode>, linesOfCode:List<String>) {
         // get the child nodes
         val childNodes = getChildNodes(blockFileIdToNodeMap, linesOfCode)
         for (childNode in childNodes) {
             children.add(childNode)
         }
+        var nameFieldInfo = getFieldInfo("Name", linesOfCode)
+        var nameFieldValue = nameFieldInfo!!.second
+        this.name = nameFieldValue
     }
 
     fun isRootNode(blockFileIdToNodeMap: Map<Int, CrayonScriptUnityObjectNode>, linesOfCode: List<String>): Boolean {
@@ -71,7 +93,7 @@ class CrayonScriptUnityObjectNode(
             CrayonScriptUnityObjectNode>, linesOfCode:List<String>): CrayonScriptUnityObjectNode? {
         var componentNodes:List<CrayonScriptUnityObjectNode> = getComponentNodes(blockFileIdToNodeMap, linesOfCode)
         for (componentNode in componentNodes) {
-            if (componentNode.objectId == TRANSFORM_ID) {
+            if (componentNode.objectId == TRANSFORM_OBJECT_ID) {
                 return componentNode
             }
         }
@@ -169,8 +191,12 @@ class CrayonScriptUnityObjectNode(
     // 4 = Transform
 
     companion object {
-        const val GAMEOBJECT_ID = 1
-        const val TRANSFORM_ID = 4
+
+        const val GAMEOBJECT_OBJECT_ID = 1
+        const val TRANSFORM_OBJECT_ID = 4
+        const val SCENE_OBJECT_ID = 1032
+
+        const val SCENE_FILE_ID = 0
 
         val fieldRegex = Regex("\\s*m_([^:]+):\\s*(.*)")
         val blockMapRegex = Regex("\\s+-\\s+([^:]+):\\s+(.*)")

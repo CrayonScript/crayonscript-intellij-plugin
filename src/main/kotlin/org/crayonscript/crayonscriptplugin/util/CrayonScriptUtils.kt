@@ -48,7 +48,7 @@ class CrayonScriptUtils {
             return Collections.unmodifiableList(mutableList)
         }
 
-        fun getGameObjectsInScene(sceneVirtualFile:VirtualFile):List<CrayonScriptUnityObjectNode> {
+        fun getSceneObject(sceneVirtualFile:VirtualFile):CrayonScriptUnityObjectNode {
             val content = String(sceneVirtualFile.contentsToByteArray())
             var linesOfCode = content.lines()
 
@@ -81,19 +81,28 @@ class CrayonScriptUtils {
             // update end index for any final block info
             blockFileIdToNodeMap[blockFileId]?.setEndIndex(index)
 
-            val rootGameObjectNodes = mutableListOf<CrayonScriptUnityObjectNode>()
+            val sceneObject = CrayonScriptUnityObjectNode(
+                CrayonScriptUnityObjectNode.SCENE_OBJECT_ID,
+                CrayonScriptUnityObjectNode.SCENE_OBJECT_ID)
+
+            val rootObjectNodes = mutableListOf<CrayonScriptUnityObjectNode>()
 
             // process the blocks
             for ((blockFileId, blockNode) in blockFileIdToNodeMap) {
-                if (blockNode.objectId ==  CrayonScriptUnityObjectNode.GAMEOBJECT_ID) {
-                    blockNode.processNode(blockFileIdToNodeMap, linesOfCode)
+                if (blockNode.objectId ==  CrayonScriptUnityObjectNode.GAMEOBJECT_OBJECT_ID) {
+                    blockNode.processGameObjectNode(blockFileIdToNodeMap, linesOfCode)
                     if (blockNode.isRootNode(blockFileIdToNodeMap, linesOfCode)) {
-                        rootGameObjectNodes.add(blockNode)
+                        rootObjectNodes.add(blockNode)
                     }
                 }
             }
 
-            return rootGameObjectNodes
+            sceneObject.processSceneNode(sceneVirtualFile)
+            for (rootObjectNode in rootObjectNodes) {
+                sceneObject.AddChild(rootObjectNode)
+            }
+
+            return sceneObject
         }
     }
 }
