@@ -99,7 +99,7 @@ class CrayonScriptUtils {
 
             sceneObject.processSceneNode(sceneVirtualFile)
             for (rootObjectNode in rootObjectNodes) {
-                sceneObject.AddChild(rootObjectNode)
+                sceneObject.addChild(rootObjectNode)
             }
 
             return sceneObject

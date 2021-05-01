@@ -25,11 +25,11 @@ class CrayonScriptUnityObjectNode(
         this.endIndex = endIndex
     }
 
-    fun GetChildren():List<CrayonScriptUnityObjectNode> {
+    fun getChildren():List<CrayonScriptUnityObjectNode> {
         return this.children
     }
 
-    fun AddChild(child:CrayonScriptUnityObjectNode) {
+    fun addChild(child:CrayonScriptUnityObjectNode) {
         this.children.add(child)
     }
 
