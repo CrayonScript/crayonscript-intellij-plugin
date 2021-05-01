@@ -34,7 +34,7 @@ class CrayonScriptUnityObjectNode(
     }
 
     fun processSceneNode(sceneVirtualFile:VirtualFile) {
-        this.name = sceneVirtualFile.name
+        this.name = sceneVirtualFile.nameWithoutExtension
     }
 
     fun processGameObjectNode(blockFileIdToNodeMap:Map<Int, CrayonScriptUnityObjectNode>, linesOfCode:List<String>) {
