@@ -39,7 +39,12 @@ class CrayonScriptUnityObjectNode(
     }
 
     fun clearChildren() {
-        this.children.clear()
+        if (this.children != null && this.children.size > 0) {
+            for (child in this.children) {
+                child.clearChildren()
+            }
+            this.children.clear()
+        }
     }
 
     fun processTopNode(crayonScriptProject:CrayonScriptProject) {

@@ -25,8 +25,16 @@ class CrayonScriptProject(private val project: Project)
         rootObjectNode.processTopNode(this)
     }
 
-    fun setupNodeObjects() {
+    fun refreshTree() {
+        clearNodeObjects()
+        setupNodeObjects()
+    }
+
+    private fun clearNodeObjects() {
         rootObjectNode.clearChildren()
+    }
+
+    private fun setupNodeObjects() {
         var sceneObjects = getSceneObjectNodes()
         for (sceneObject in sceneObjects) {
             rootObjectNode.addChild(sceneObject)
@@ -37,7 +45,7 @@ class CrayonScriptProject(private val project: Project)
         return CrayonScriptUtils.getUnityAssetFilesByType(project, CrayonScriptUtils.CRAYONSCRIPT_FILE_TYPE)
     }
 
-    private fun getScenes(): List<VirtualFile> {
+    fun getScenes(): List<VirtualFile> {
         return CrayonScriptUtils.getUnityAssetFilesByType(project, CrayonScriptUtils.SCENE_FILE_TYPE)
     }
 
@@ -50,5 +58,4 @@ class CrayonScriptProject(private val project: Project)
         }
         return sceneObjects
     }
-
 }

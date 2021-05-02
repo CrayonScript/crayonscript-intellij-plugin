@@ -1,9 +1,13 @@
 package org.crayonscript.crayonscriptplugin.project
 
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
+import com.intellij.openapi.vfs.AsyncFileListener
+import com.intellij.openapi.vfs.VirtualFileManager
+import com.intellij.openapi.vfs.newvfs.events.VFileEvent
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.ScrollPaneFactory
@@ -27,30 +31,54 @@ class CrayonScriptUnityToolWindowFactory : ToolWindowFactory, DumbAware {
     }
 }
 
-class CrayonScriptUnityToolWindowPanel(project: Project) : SimpleToolWindowPanel(true, false) {
-    private val unityToolWindow = CrayonScriptUnityToolWindow(project)
+class CrayonScriptUnityToolWindowPanel(project: Project) : SimpleToolWindowPanel(true, false),
+    AsyncFileListener, AsyncFileListener.ChangeApplier, Disposable {
+
+    private val crayonScriptProject:CrayonScriptProject = project.service<CrayonScriptProjectService>().crayonScriptProject
+    private val unityToolWindow = CrayonScriptUnityToolWindow(crayonScriptProject)
 
     init {
-        setContent(unityToolWindow.content)
+        setContent(unityToolWindow.createContent())
+        VirtualFileManager.getInstance().addAsyncFileListener(this, this)
     }
+
+    override fun prepareChange(events: MutableList<out VFileEvent>): AsyncFileListener.ChangeApplier? {
+        val scenes = crayonScriptProject.getScenes()
+        for (event in events) {
+            for (scene in scenes) {
+                if (event.file == scene) {
+                    return this
+                }
+            }
+        }
+        return null
+    }
+
+    override fun dispose() {
+        // TODO("Not yet implemented")
+    }
+
+    override fun beforeVfsChange() {
+        super.beforeVfsChange()
+        removeAll()
+        revalidate()
+        repaint()
+    }
+
+    override fun afterVfsChange() {
+        super.afterVfsChange()
+        setContent(unityToolWindow.createContent())
+    }
+
 }
 
 
-class CrayonScriptUnityToolWindow(
-    private val project: Project
-) {
+class CrayonScriptUnityToolWindow(private val crayonScriptProject: CrayonScriptProject) {
 
-    val content: JComponent
-
-    init {
-
-        val projectService = project.service<CrayonScriptProjectService>()
-        val crayonScriptProject = projectService.crayonScriptProject;
-
-        var crayonScriptTree = CrayonScriptTree(crayonScriptProject)
-        content = ScrollPaneFactory.createScrollPane(crayonScriptTree, 0)
+    fun createContent(): JComponent {
+        val crayonScriptTree = CrayonScriptTree(crayonScriptProject)
+        return ScrollPaneFactory.createScrollPane(crayonScriptTree, 0)
     }
-
 }
 
 class CrayonScriptTree(
@@ -67,17 +95,15 @@ class CrayonScriptTree(
         this.selectionModel = CrayonScriptTreeSelectionModel()
         this.cellRenderer = CrayonScriptTreeCellRenderer(crayonScriptProject)
 
-        refresh()
+        this.refreshTree()
     }
 
-    private fun refresh() {
-        crayonScriptProject.setupNodeObjects()
-        setupTreeNodes()
+    private fun refreshTree() {
+        crayonScriptProject.refreshTree()
+        crayonScriptTreeModel.refreshTree()
+
+        revalidate()
         repaint()
-    }
-
-    private fun setupTreeNodes() {
-        crayonScriptTreeModel.setupTreeNodes()
     }
 }
 
@@ -93,7 +119,16 @@ class CrayonScriptTreeModel(
         this.addTreeModelListener(CrayonScriptTreeModelListener())
     }
 
-    fun setupTreeNodes() {
+    fun refreshTree() {
+        clearTreeNodes()
+        setupTreeNodes()
+    }
+
+    private fun clearTreeNodes() {
+        this.crayonScriptTreeNode.clearTreeNodes()
+    }
+
+    private fun setupTreeNodes() {
         this.crayonScriptTreeNode.setupTreeNodes()
     }
 }
@@ -105,6 +140,17 @@ class CrayonScriptTreeNode(
 
     constructor(crayonScriptProject: CrayonScriptProject) :
             this(crayonScriptProject, crayonScriptProject.rootObjectNode)
+
+    fun clearTreeNodes() {
+        if (this.childCount > 0) {
+            for (childObject in this.children()) {
+                if (childObject is CrayonScriptTreeNode) {
+                    childObject.clearTreeNodes()
+                }
+            }
+            this.children.clear()
+        }
+    }
 
     fun setupTreeNodes() {
         for (childObject in this.crayonScriptObject.getChildren()) {
