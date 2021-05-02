@@ -38,6 +38,10 @@ class CrayonScriptUnityObjectNode(
         this.children.add(child)
     }
 
+    fun clearChildren() {
+        this.children.clear()
+    }
+
     fun processTopNode(crayonScriptProject:CrayonScriptProject) {
         this.name = crayonScriptProject.name
     }

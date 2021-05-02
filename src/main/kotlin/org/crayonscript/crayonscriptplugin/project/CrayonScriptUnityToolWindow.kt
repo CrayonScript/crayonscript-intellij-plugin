@@ -11,7 +11,6 @@ import com.intellij.ui.content.ContentFactory
 import com.intellij.ui.treeStructure.SimpleTree
 import org.crayonscript.crayonscriptplugin.services.CrayonScriptProjectService
 import org.crayonscript.crayonscriptplugin.util.CrayonScriptUnityObjectNode
-import org.crayonscript.crayonscriptplugin.util.CrayonScriptUtils
 import javax.swing.JComponent
 import javax.swing.event.TreeModelEvent
 import javax.swing.event.TreeModelListener
@@ -44,68 +43,72 @@ class CrayonScriptUnityToolWindow(
     val content: JComponent
 
     init {
+
         val projectService = project.service<CrayonScriptProjectService>()
         val crayonScriptProject = projectService.crayonScriptProject;
 
-        var sceneObjects = mutableListOf<CrayonScriptUnityObjectNode>()
-        var scenes = crayonScriptProject.getScenes()
-        for (scene in scenes) {
-            var sceneObject = CrayonScriptUtils.getSceneObject(scene)
-            sceneObjects.add(sceneObject)
-        }
-
-        var rootObject = CrayonScriptUnityObjectNode(
-            CrayonScriptUnityObjectNode.ROOT_OBJECT_ID,
-            CrayonScriptUnityObjectNode.ROOT_FILE_ID
-        )
-        rootObject.processTopNode(crayonScriptProject)
-
-        for (sceneObject in sceneObjects) {
-            rootObject.addChild(sceneObject)
-        }
-
-        var rootTreeNode = CrayonScriptTreeNode(project, rootObject)
-        rootTreeNode.setupTreeNodes()
-
-        var rootTreeModel = CrayonScriptTreeModel(project, rootTreeNode)
-
-        val crayonScriptTree = CrayonScriptTree(project, rootTreeModel)
-
+        var crayonScriptTree = CrayonScriptTree(crayonScriptProject)
         content = ScrollPaneFactory.createScrollPane(crayonScriptTree, 0)
     }
+
 }
 
 class CrayonScriptTree(
-    private val project: Project,
+    private val crayonScriptProject: CrayonScriptProject,
     private val crayonScriptTreeModel: CrayonScriptTreeModel
 ) : SimpleTree(crayonScriptTreeModel) {
+
+    constructor(crayonScriptProject: CrayonScriptProject):
+            this(crayonScriptProject, CrayonScriptTreeModel(crayonScriptProject))
 
     init {
         this.isRootVisible = true
         this.showsRootHandles = true
         this.selectionModel = CrayonScriptTreeSelectionModel()
-        this.cellRenderer = CrayonScriptTreeCellRenderer(project)
+        this.cellRenderer = CrayonScriptTreeCellRenderer(crayonScriptProject)
+
+        refresh()
+    }
+
+    private fun refresh() {
+        crayonScriptProject.setupNodeObjects()
+        setupTreeNodes()
+        repaint()
+    }
+
+    private fun setupTreeNodes() {
+        crayonScriptTreeModel.setupTreeNodes()
     }
 }
 
 class CrayonScriptTreeModel(
-    private val project: Project,
+    private val crayonScriptProject: CrayonScriptProject,
     private val crayonScriptTreeNode: CrayonScriptTreeNode
 ) : DefaultTreeModel(crayonScriptTreeNode) {
+
+    constructor(crayonScriptProject: CrayonScriptProject):
+            this(crayonScriptProject, CrayonScriptTreeNode(crayonScriptProject))
 
     init {
         this.addTreeModelListener(CrayonScriptTreeModelListener())
     }
+
+    fun setupTreeNodes() {
+        this.crayonScriptTreeNode.setupTreeNodes()
+    }
 }
 
 class CrayonScriptTreeNode(
-    private val project: Project,
+    private val crayonScriptProject: CrayonScriptProject,
     private val crayonScriptObject: CrayonScriptUnityObjectNode
 ) : DefaultMutableTreeNode(crayonScriptObject) {
 
+    constructor(crayonScriptProject: CrayonScriptProject) :
+            this(crayonScriptProject, crayonScriptProject.rootObjectNode)
+
     fun setupTreeNodes() {
         for (childObject in this.crayonScriptObject.getChildren()) {
-            val childTreeNode = CrayonScriptTreeNode(project, childObject!!)
+            val childTreeNode = CrayonScriptTreeNode(crayonScriptProject, childObject!!)
             this.add(childTreeNode)
             childTreeNode.setupTreeNodes()
         }
@@ -113,7 +116,7 @@ class CrayonScriptTreeNode(
 }
 
 class CrayonScriptTreeCellRenderer(
-    private val project: Project
+    private val crayonScriptProject: CrayonScriptProject
 ) : DefaultTreeCellRenderer() {
 
 }
