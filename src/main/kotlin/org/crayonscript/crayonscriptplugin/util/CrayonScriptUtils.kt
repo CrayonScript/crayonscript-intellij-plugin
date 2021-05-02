@@ -14,6 +14,24 @@ class CrayonScriptUtils {
 
         const val CRAYONSCRIPT_FILE_TYPE:String = "CrayonScript"
 
+        fun isUnityAssetFileOfType(fileOrDir:VirtualFile, fileType:String): Boolean {
+            if (!fileOrDir?.exists()) false
+            if (!fileOrDir.isValid) false
+            if (fileType == SCENE_FILE_TYPE) {
+                val searchStringInYAML = "m_SceneGUID:"
+                if (!fileOrDir.isDirectory && fileOrDir.extension == "unity") {
+                    val contentsAsByteArray = fileOrDir.contentsToByteArray()
+                    if (contentsAsByteArray != null) {
+                        val contents = String(contentsAsByteArray)
+                        if (contents.contains(searchStringInYAML)) {
+                            return true
+                        }
+                    }
+                }
+            }
+            return false
+        }
+
         fun getUnityAssetFilesByType(project: Project, fileType:String ): List<VirtualFile> {
             // locate all scenes in Unity assets
             val projectDirVirtualFile = project.guessProjectDir()

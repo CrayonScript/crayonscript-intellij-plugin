@@ -43,12 +43,9 @@ class CrayonScriptUnityToolWindowPanel(project: Project) : SimpleToolWindowPanel
     }
 
     override fun prepareChange(events: MutableList<out VFileEvent>): AsyncFileListener.ChangeApplier? {
-        val scenes = crayonScriptProject.getScenes()
         for (event in events) {
-            for (scene in scenes) {
-                if (event.file == scene) {
-                    return this
-                }
+            if (crayonScriptProject.isScene(event.file)) {
+                return this
             }
         }
         return null

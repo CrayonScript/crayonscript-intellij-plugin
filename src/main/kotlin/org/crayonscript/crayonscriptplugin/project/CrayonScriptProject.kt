@@ -45,7 +45,12 @@ class CrayonScriptProject(private val project: Project)
         return CrayonScriptUtils.getUnityAssetFilesByType(project, CrayonScriptUtils.CRAYONSCRIPT_FILE_TYPE)
     }
 
-    fun getScenes(): List<VirtualFile> {
+    fun isScene(file:VirtualFile?): Boolean {
+        if (file == null) return false
+        return CrayonScriptUtils.isUnityAssetFileOfType(file, CrayonScriptUtils.SCENE_FILE_TYPE)
+    }
+
+    private fun getScenes(): List<VirtualFile> {
         return CrayonScriptUtils.getUnityAssetFilesByType(project, CrayonScriptUtils.SCENE_FILE_TYPE)
     }
 
