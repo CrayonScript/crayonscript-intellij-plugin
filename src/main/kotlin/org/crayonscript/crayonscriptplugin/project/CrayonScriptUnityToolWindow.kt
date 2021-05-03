@@ -16,8 +16,11 @@ import com.intellij.ui.treeStructure.SimpleTree
 import org.crayonscript.crayonscriptplugin.services.CrayonScriptProjectService
 import org.crayonscript.crayonscriptplugin.util.CrayonScriptUnityObjectNode
 import javax.swing.JComponent
+import javax.swing.SwingUtilities
 import javax.swing.event.TreeModelEvent
 import javax.swing.event.TreeModelListener
+import javax.swing.event.TreeSelectionEvent
+import javax.swing.event.TreeSelectionListener
 import javax.swing.tree.*
 
 
@@ -89,8 +92,11 @@ class CrayonScriptTree(
     init {
         this.isRootVisible = true
         this.showsRootHandles = true
-        this.selectionModel = CrayonScriptTreeSelectionModel()
+        this.expandsSelectedPaths = true
+        this.selectionModel.selectionMode = TreeSelectionModel.SINGLE_TREE_SELECTION
         this.cellRenderer = CrayonScriptTreeCellRenderer(crayonScriptProject)
+
+        this.addTreeSelectionListener(CrayonScriptTreeSelectionListener(this, crayonScriptTreeModel))
 
         this.refreshTree()
     }
@@ -132,7 +138,7 @@ class CrayonScriptTreeModel(
 
 class CrayonScriptTreeNode(
     private val crayonScriptProject: CrayonScriptProject,
-    private val crayonScriptObject: CrayonScriptUnityObjectNode
+    val crayonScriptObject: CrayonScriptUnityObjectNode
 ) : DefaultMutableTreeNode(crayonScriptObject) {
 
     constructor(crayonScriptProject: CrayonScriptProject) :
@@ -150,7 +156,7 @@ class CrayonScriptTreeNode(
     }
 
     fun setupTreeNodes() {
-        for (childObject in this.crayonScriptObject.getChildren()) {
+        for (childObject in this.crayonScriptObject.children) {
             val childTreeNode = CrayonScriptTreeNode(crayonScriptProject, childObject!!)
             this.add(childTreeNode)
             childTreeNode.setupTreeNodes()
@@ -164,10 +170,18 @@ class CrayonScriptTreeCellRenderer(
 
 }
 
-class CrayonScriptTreeSelectionModel() : DefaultTreeSelectionModel() {
+class CrayonScriptTreeSelectionListener(
+    private val tree:CrayonScriptTree,
+    private var treeModel:CrayonScriptTreeModel
+) : TreeSelectionListener {
 
-    init {
-        this.selectionMode = TreeSelectionModel.SINGLE_TREE_SELECTION
+    override fun valueChanged(e: TreeSelectionEvent?) {
+        var node = tree.lastSelectedPathComponent as CrayonScriptTreeNode
+        SwingUtilities.invokeLater(Runnable {
+            val selectionPath = TreePath(node.path)
+            tree.selectionPath = selectionPath
+            tree.scrollPathToVisible(selectionPath)
+        })
     }
 }
 

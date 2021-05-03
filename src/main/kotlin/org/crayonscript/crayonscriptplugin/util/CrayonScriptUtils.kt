@@ -87,17 +87,17 @@ class CrayonScriptUtils {
                     val fileId = matchGroups.elementAt(2)!!.value.toInt()
 
                     blockFileIdToNodeMap[fileId] = CrayonScriptUnityObjectNode(objectId, fileId)
-                    blockFileIdToNodeMap[fileId]!!.setStartIndex(index)
+                    blockFileIdToNodeMap[fileId]!!.startIndex = index
 
                     // store the previous block
-                    blockFileIdToNodeMap[blockFileId]?.setEndIndex(index)
+                    blockFileIdToNodeMap[blockFileId]?.endIndex = index
                     // setup the new block start index
                     blockFileId = fileId
                 }
             }
 
             // update end index for any final block info
-            blockFileIdToNodeMap[blockFileId]?.setEndIndex(index)
+            blockFileIdToNodeMap[blockFileId]?.endIndex = index
 
             val sceneObject = CrayonScriptUnityObjectNode(
                 CrayonScriptUnityObjectNode.SCENE_OBJECT_ID,

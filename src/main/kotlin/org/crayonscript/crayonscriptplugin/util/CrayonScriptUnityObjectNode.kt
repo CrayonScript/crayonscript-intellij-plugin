@@ -8,31 +8,20 @@ class CrayonScriptUnityObjectNode(
     val fileId:Int
 ) {
 
-    private var startIndex:Int = 0
-    private var endIndex:Int = 0
+    var startIndex:Int = 0
+
+    var endIndex:Int = 0
+
     private var name:String = ""
+        get() = field
 
-    private val children:MutableList<CrayonScriptUnityObjectNode> = mutableListOf<CrayonScriptUnityObjectNode>()
+    val children:MutableList<CrayonScriptUnityObjectNode> = mutableListOf<CrayonScriptUnityObjectNode>()
+        get() = field
 
-    fun getName():String {
-        return name
-    }
-
-    override fun toString(): String {
-        return name
-    }
-
-    fun setStartIndex(startIndex:Int) {
-        this.startIndex = startIndex
-    }
-
-    fun setEndIndex(endIndex:Int) {
-        this.endIndex = endIndex
-    }
-
-    fun getChildren():List<CrayonScriptUnityObjectNode> {
-        return this.children
-    }
+    val isLeaf:Boolean
+        get() {
+            return children.size == 0
+        }
 
     fun addChild(child:CrayonScriptUnityObjectNode) {
         this.children.add(child)
@@ -45,6 +34,10 @@ class CrayonScriptUnityObjectNode(
             }
             this.children.clear()
         }
+    }
+
+    override fun toString(): String {
+        return name
     }
 
     fun processTopNode(crayonScriptProject:CrayonScriptProject) {
