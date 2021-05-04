@@ -22,8 +22,8 @@
         <fileEditorProvider
                 implementation="org.crayonscript.crayonscriptplugin.editors.CrayonScriptEditorProvider" />
         <iconProvider implementation="org.crayonscript.crayonscriptplugin.icons.CrayonScriptIconProvider" />
-        <toolWindow id="CrayonScriptUnityWindow"
-                    anchor="left"
+        <toolWindow id="Unity"
+                    anchor="right"
                     factoryClass="org.crayonscript.crayonscriptplugin.project.CrayonScriptUnityToolWindowFactory"
                     icon="/icons/unity-tool-window-icon.svg"/>
     </extensions>
