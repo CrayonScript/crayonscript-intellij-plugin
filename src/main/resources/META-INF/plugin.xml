@@ -24,8 +24,8 @@
                   implementationClass="org.crayonscript.crayonscriptplugin.editors.CrayonGraphFileType"
                   language="CrayonGraph"
                   fieldName="INSTANCE" />
-        <fileEditorProvider
-                implementation="org.crayonscript.crayonscriptplugin.editors.CrayonScriptEditorProvider" />
+        <!--<fileEditorProvider
+                implementation="org.crayonscript.crayonscriptplugin.editors.CrayonScriptEditorProvider" />-->
         <fileEditorProvider
                 implementation="org.crayonscript.crayonscriptplugin.editors.CrayonGraphEditorProvider" />
         <iconProvider implementation="org.crayonscript.crayonscriptplugin.icons.CrayonScriptIconProvider" />

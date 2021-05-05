@@ -10,6 +10,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import java.beans.PropertyChangeListener
 import javax.swing.JComponent
 
+@Deprecated("use default editor")
 class CrayonScriptEditor(private val project: Project, private val file: VirtualFile) : FileEditor, DumbAware {
 
     override fun getFile() = file
