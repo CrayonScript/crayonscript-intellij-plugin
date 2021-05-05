@@ -10,7 +10,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import java.beans.PropertyChangeListener
 import javax.swing.JComponent
 
-class CrayonScriptEditor(private val project: Project, private val file: VirtualFile) : FileEditor, DumbAware {
+class CrayonGraphEditor(private val project: Project, private val file: VirtualFile) : FileEditor, DumbAware {
 
     override fun getFile() = file
 
@@ -34,7 +34,7 @@ class CrayonScriptEditor(private val project: Project, private val file: Virtual
         TODO("Not yet implemented")
     }
 
-    override fun getName(): String = "CrayonScript Editor"
+    override fun getName(): String = "CrayonGraph Editor"
 
     override fun setState(state: FileEditorState) {
     }

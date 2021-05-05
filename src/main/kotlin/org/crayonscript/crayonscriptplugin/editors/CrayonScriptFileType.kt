@@ -13,5 +13,5 @@ object CrayonScriptFileType : LanguageFileType(CrayonScriptLanguage){
 }
 
 object CrayonScriptIcon {
-    val FILE = IconLoader.getIcon("/icons/icon.svg", this.javaClass)
+    val FILE = IconLoader.getIcon("/icons/crayonscripticon.svg", this.javaClass)
 }

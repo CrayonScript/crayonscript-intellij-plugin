@@ -7,21 +7,21 @@ import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 
-class CrayonScriptEditorProvider : FileEditorProvider, DumbAware {
+class CrayonGraphEditorProvider : FileEditorProvider, DumbAware {
 
     override fun accept(project: Project, file: VirtualFile): Boolean {
         if (file.isValid) {
-            if (file.extension == "crayonscript") {
+            if (file.extension == "crayongraph") {
                return true
             }
         }
         return false
     }
 
-    override fun createEditor(project: Project, file: VirtualFile): FileEditor = CrayonScriptEditor(project, file)
+    override fun createEditor(project: Project, file: VirtualFile): FileEditor = CrayonGraphEditor(project, file)
 
     override fun getEditorTypeId(): String {
-        return "crayonscript"
+        return "crayongraph"
     }
 
     override fun getPolicy(): FileEditorPolicy {
