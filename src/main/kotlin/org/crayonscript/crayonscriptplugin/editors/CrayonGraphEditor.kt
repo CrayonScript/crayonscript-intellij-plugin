@@ -84,17 +84,16 @@ class CrayonScriptJGraphView(
     private val crayonScriptGraph: CrayonScriptJGraph) : mxGraphComponent(crayonScriptGraph){
 
         init {
-            // Sets switches typically used in an editor
 
             // Sets switches typically used in an editor
             isPageVisible = true
             isGridVisible = true
+            isPreferPageSize = true
+
             setToolTips(true)
             getConnectionHandler().isCreateTarget = true
 
-            // Loads the defalt stylesheet from an external file
-
-            // Loads the defalt stylesheet from an external file
+            // Loads the default stylesheet from an external file
             val codec = mxCodec()
             val doc = mxUtils.loadDocument(
                 mxGraph::class.java.getResource(
@@ -103,8 +102,6 @@ class CrayonScriptJGraphView(
                     .toString()
             )
             codec.decode(doc.documentElement, crayonScriptGraph.stylesheet)
-
-            // Sets the background to white
 
             // Sets the background to white
             getViewport().isOpaque = true
