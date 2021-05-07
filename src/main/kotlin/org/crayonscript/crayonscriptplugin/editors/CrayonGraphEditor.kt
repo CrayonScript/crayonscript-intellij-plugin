@@ -7,15 +7,19 @@ import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.vfs.VirtualFile
+import java.awt.BorderLayout
 import java.beans.PropertyChangeListener
 import javax.swing.JComponent
+import javax.swing.JPanel
 
 class CrayonGraphEditor(private val project: Project, private val file: VirtualFile) : FileEditor, DumbAware {
+
+    private val jGraphEditor:CrayonScriptJGraphEditor = CrayonScriptJGraphEditor(project, file)
 
     override fun getFile() = file
 
     override fun <T : Any?> getUserData(key: Key<T>): T? {
-        TODO("Not yet implemented")
+        return null;
     }
 
     override fun <T : Any?> putUserData(key: Key<T>, value: T?) {
@@ -27,11 +31,11 @@ class CrayonGraphEditor(private val project: Project, private val file: VirtualF
     }
 
     override fun getComponent(): JComponent {
-        TODO("Not yet implemented")
+        return jGraphEditor
     }
 
     override fun getPreferredFocusedComponent(): JComponent? {
-        TODO("Not yet implemented")
+        return jGraphEditor
     }
 
     override fun getName(): String = "CrayonGraph Editor"
@@ -56,4 +60,24 @@ class CrayonGraphEditor(private val project: Project, private val file: VirtualF
     override fun getCurrentLocation(): FileEditorLocation? {
         return null;
     }
+}
+
+class CrayonScriptJGraphEditor(private val project: Project, private val file: VirtualFile) : JPanel() {
+
+    init {
+        this.layout = BorderLayout()
+        //val graphView = CrayonScriptJGraphView(project, file, CrayonScriptJGraph())
+    }
+
+}
+
+class CrayonScriptJGraphView(
+    private val project: Project,
+    private val file: VirtualFile,
+    private val graph: CrayonScriptJGraph){
+
+}
+
+class CrayonScriptJGraph {
+
 }
