@@ -7,13 +7,15 @@ import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.vfs.VirtualFile
+import com.mxgraph.io.mxCodec
+import com.mxgraph.swing.mxGraphComponent
+import com.mxgraph.util.mxUtils
+import com.mxgraph.view.mxGraph
 import java.awt.BorderLayout
+import java.awt.Color
 import java.beans.PropertyChangeListener
 import javax.swing.JComponent
 import javax.swing.JPanel
-
-import com.mxgraph.swing.mxGraphComponent
-import com.mxgraph.view.mxGraph
 
 class CrayonGraphEditor(private val project: Project, private val file: VirtualFile) : FileEditor, DumbAware {
 
@@ -67,11 +69,11 @@ class CrayonGraphEditor(private val project: Project, private val file: VirtualF
 
 class CrayonScriptJGraphEditor(private val project: Project, private val file: VirtualFile) : JPanel() {
 
+    private val graphView:CrayonScriptJGraphView = CrayonScriptJGraphView(project, file, CrayonScriptJGraph())
+
     init {
         this.layout = BorderLayout()
-        //val graphView = CrayonScriptJGraphView(project, file, CrayonScriptJGraph())
-
-        val graphComponent = mxGraphComponent(mxGraph())
+        this.add(this.graphView, BorderLayout.CENTER)
     }
 
 }
@@ -79,10 +81,37 @@ class CrayonScriptJGraphEditor(private val project: Project, private val file: V
 class CrayonScriptJGraphView(
     private val project: Project,
     private val file: VirtualFile,
-    private val graph: CrayonScriptJGraph){
+    private val crayonScriptGraph: CrayonScriptJGraph) : mxGraphComponent(crayonScriptGraph){
 
+        init {
+            // Sets switches typically used in an editor
+
+            // Sets switches typically used in an editor
+            isPageVisible = true
+            isGridVisible = true
+            setToolTips(true)
+            getConnectionHandler().isCreateTarget = true
+
+            // Loads the defalt stylesheet from an external file
+
+            // Loads the defalt stylesheet from an external file
+            val codec = mxCodec()
+            val doc = mxUtils.loadDocument(
+                mxGraph::class.java.getResource(
+                    "/com/mxgraph/swing/resources/default-style.xml"
+                )
+                    .toString()
+            )
+            codec.decode(doc.documentElement, crayonScriptGraph.stylesheet)
+
+            // Sets the background to white
+
+            // Sets the background to white
+            getViewport().isOpaque = true
+            getViewport().background = Color.WHITE
+        }
 }
 
-class CrayonScriptJGraph {
+class CrayonScriptJGraph : mxGraph() {
 
 }
