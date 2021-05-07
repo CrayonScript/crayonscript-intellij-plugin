@@ -12,6 +12,9 @@ import java.beans.PropertyChangeListener
 import javax.swing.JComponent
 import javax.swing.JPanel
 
+import com.mxgraph.swing.mxGraphComponent
+import com.mxgraph.view.mxGraph
+
 class CrayonGraphEditor(private val project: Project, private val file: VirtualFile) : FileEditor, DumbAware {
 
     private val jGraphEditor:CrayonScriptJGraphEditor = CrayonScriptJGraphEditor(project, file)
@@ -67,6 +70,8 @@ class CrayonScriptJGraphEditor(private val project: Project, private val file: V
     init {
         this.layout = BorderLayout()
         //val graphView = CrayonScriptJGraphView(project, file, CrayonScriptJGraph())
+
+        val graphComponent = mxGraphComponent(mxGraph())
     }
 
 }
