@@ -13,6 +13,8 @@ import com.mxgraph.util.mxUtils
 import com.mxgraph.view.mxGraph
 import java.awt.BorderLayout
 import java.awt.Color
+import java.awt.print.PageFormat
+import java.awt.print.Paper
 import java.beans.PropertyChangeListener
 import javax.swing.JComponent
 import javax.swing.JPanel
@@ -106,6 +108,14 @@ class CrayonScriptJGraphView(
             // Sets the background to white
             getViewport().isOpaque = true
             getViewport().background = Color.WHITE
+
+            var pageFormat = PageFormat()
+            var paper:Paper = pageFormat.paper
+            paper.setSize(65536.0, 65536.0)
+            pageFormat.paper = paper
+            this.setPageFormat(pageFormat)
+
+            graphControl.updatePreferredSize()
         }
 }
 
