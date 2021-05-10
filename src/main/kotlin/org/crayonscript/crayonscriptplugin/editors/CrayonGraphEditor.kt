@@ -107,8 +107,8 @@ class CrayonScriptJGraphEditor(private val crayonScriptProject: CrayonScriptProj
             crayonScriptToolWindowContent
         )
         innerSplitPane.isOneTouchExpandable = true
-        innerSplitPane.dividerLocation = 800
-        innerSplitPane.dividerSize = 2
+        innerSplitPane.dividerLocation = 600
+        innerSplitPane.dividerSize = 1
         innerSplitPane.border = null
 
         val graph = this.graphView.graph;
@@ -124,8 +124,6 @@ class CrayonScriptJGraphEditor(private val crayonScriptProject: CrayonScriptProj
                 }
             }
         })
-        val clsLoader = mxGraphTransferable::class.java.classLoader
-        Thread.currentThread().contextClassLoader = clsLoader
         shapesPalette.addTemplate(
                 "Container",
                 ImageIcon(
@@ -140,6 +138,10 @@ class CrayonScriptJGraphEditor(private val crayonScriptProject: CrayonScriptProj
             libraryView,
             innerSplitPane
         )
+        outerSplitPane.isOneTouchExpandable = true
+        outerSplitPane.dividerLocation = 75
+        outerSplitPane.dividerSize = 1
+        outerSplitPane.border = null
 
         this.add(outerSplitPane, BorderLayout.CENTER)
     }

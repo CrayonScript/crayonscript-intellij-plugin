@@ -6,6 +6,8 @@ import com.intellij.openapi.project.Project
 import org.crayonscript.crayonscriptplugin.CrayonScriptBundle
 import org.crayonscript.crayonscriptplugin.project.CrayonScriptProject
 
+import com.mxgraph.swing.util.mxGraphTransferable
+
 class CrayonScriptProjectService(
     private val project: Project
 ) : DumbAware, Disposable {
@@ -14,6 +16,8 @@ class CrayonScriptProjectService(
 
     init {
         println(CrayonScriptBundle.message("projectService", project.name))
+        val clsLoader = mxGraphTransferable::class.java.classLoader
+        Thread.currentThread().contextClassLoader = clsLoader
         crayonScriptProject = CrayonScriptProject(project)
     }
 
